@@ -130,6 +130,7 @@ Let's set some data aside so we can later pretend those are new observations and
 Do a random split of data 80/20.
 
 ```{r}
+set.seed(1234) #for reproducibility, set random number seed
 trainset <- createDataPartition(y = titanic$Survived, p = 0.8, list = FALSE)
 new_obs <- titanic[trainset,] #our test observations
 titanic <- titanic[-trainset,] #remove those from the main dataset
@@ -141,6 +142,7 @@ titanic <- titanic[-trainset,] #remove those from the main dataset
 
 Looking at survival as outcome, all others as predictors
 ```{r, echo=TRUE}
+set.seed(123) #for reproducibility, set random number seed
 fitControl <- trainControl(method="repeatedcv",repeats=5,number=5) #repeated cross-validation
 treeGrid=expand.grid(maxdepth=1:10)
 fit1 = train(Survived ~ ., data=titanic, method="rpart2",  trControl = fitControl, tuneGrid = treeGrid) 
